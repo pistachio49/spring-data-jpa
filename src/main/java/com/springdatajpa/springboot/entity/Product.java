@@ -1,15 +1,26 @@
 package com.springdatajpa.springboot.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
+@Table(
+        name = "products",
+        schema = "ecommerce",
+        uniqueConstraints = {
+                 @UniqueConstraint(
+                         name = "sku_unique",
+                         columnNames = "sku"
+                 )
+        }
+)
 public class Product {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(  nullable = false, length = 250)
     private String sku;
     private String name;
     private String description;
